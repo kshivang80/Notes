@@ -1,0 +1,148 @@
+
+
+Q1 - What is memoisation in react?
+
+Ans - Memoization is a technique used in React to optimize performance   by avoiding unnecessary re-renders of components.
+
+In React, components are re-rendered whenever their props or state change. This can be inefficient if the component is re-rendered with the same props or state multiple times, especially if the rendering is computationally expensive.
+
+Memoization is the process of caching the result of a function call based on its inputs, so that if the same inputs are provided again, the cached result is returned instead of recalculating the function.
+
+////*************************************//////
+Example =>
+
+let sum=0;
+const calc=(n)=>{
+    for(let i=0;i<=n;i++){
+         sum+=i
+    }
+   return sum
+}
+
+// console.time()
+// console.log(calc(5))
+// console.timeEnd()
+//creating memorize function
+
+const memoize=(fun)=>{
+    let cache={}
+    return function(...args){
+        let n=args[0]
+        if(n in cache){
+            console.log("data in cache")
+            return cache[n]
+        }else{
+            console.log("calculation first time")
+            let result=fun(n)
+            cache[n]=result;
+            return result
+        }
+        
+    }
+}
+
+console.time()
+let efficient=memoize(calc)
+console.log(efficient(10000000))
+console.timeEnd()
+
+console.time()
+//let efficient=memoize(calc)
+console.log(efficient(10000000))
+console.timeEnd()
+
+
+////*************************************//////
+
+
+
+
+Q 2 What is the difference between react.memo and react.useMemo?
+
+Ans - While React.memo and React.useMemo are both used to optimize performance in React, they serve different purposes.
+
+React.memo is a higher-order component that memoizes a component. It works by comparing the previous and current props of a component, and if they are the same, it will reuse the previous render result, avoiding a re-render.
+
+React.useMemo, on the other hand, is a React hook that memoizes a value. It is used to avoid unnecessary computations by caching the result of a function call. The cached value is only recalculated when its dependencies change.
+
+
+
+
+Example of useMemo Hook 
+
+
+import { useMemo, useState } from "react";
+
+export default function App() {
+  const [countOne, setCountOne] = useState(0);
+  const [countTwo, setCountTwo] = useState(0);
+
+  const incOne = () => {
+    setCountOne(countOne + 1);
+  };
+  
+const incTwo = () => {
+    setCountTwo(countTwo + 1);
+  };
+ 
+
+  const isEven = useMemo(() => {
+    console.log("isEven is Running");  // frist jab click hoga tabhi chalega;
+    return countOne % 2 === 0;
+  }, [countOne]);
+
+
+  // const isEven = () => {
+  //   let i = 0;
+  //   let j = 0;
+  //   while (i < 10000) i++;
+  //   while (j < 10000) j++;
+  //   console.log("isEven is Running");
+  //   return countOne % 2 === 0;
+  // };
+
+  return (
+    <div
+      className="App"
+      style={{ display: "flex", width: "80%", justifyContent: "space-between" }}
+    >
+      <div>
+        <h2>CountOne : {countOne}</h2>
+        <button onClick={incOne}>INC</button>
+       
+        <h2>{isEven ? "Even" : "Odd"}</h2>
+      </div>
+      <div>
+        <h2>CountTwo : {countTwo}</h2>
+        <button onClick={incTwo}>INC</button>
+       
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

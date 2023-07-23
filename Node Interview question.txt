@@ -1,0 +1,522 @@
+
+Q1  Explain in brief what is node js?
+
+=>Introduction: Node.js is an open-source and cross-platform runtime environment for executing JavaScript code outside a browser. You need to remember that NodeJS is not a framework and it’s not a programming language. Most people are confused and understand it’s a framework or a programming language. We often use Node.js for building back-end services like APIs like Web App or Mobile App. It’s used in production by large companies such as Paypal, Uber, Netflix, Walmart, and so on.
+
+## Features of NodeJS
+There are other programming languages also which we can use to build back-end services so what makes Node.js different I am going to explain.
+
+=> It’s easy to get started and can be used for prototyping and agile development
+=> It provides fast and highly scalable services
+=> It uses JavaScript everywhere, so it’s easy for a JavaScript programmer to build back-end services using Node.js
+=> Source code cleaner and consistent.
+=> Large ecosystem for open source library.
+=> It has Asynchronous or Non-blocking nature.
+
+## Application of NodeJS: NodeJS should be preferred to build:
+
+=> Real-Time Chats,
+=> Complex Single-Page applications,
+=> Real-time collaboration tools,
+=> Streaming apps
+=> JSON APIs based application
+
+
+Q2   How is node js non-blocking?
+
+=> NodeJS has the ability to do multiple things at the same time is called asynchronous programming.
+
+Think of a waiter working in a restaurant. He goes around the restaurant taking orders from customers and serving them when their respective food is ready. What happens when the waiter takes an order from a customer and waits until the food is prepared, serves it and then proceeds to the next customer. This way the waiting time for each customer increases and the restaurant would be a huge flop. The latter represents synchronous programming and the earlier one represents asynchronous programming.
+
+Non-Blocking :> Non-Blocking nature of node.js simply means that node.js proceeds with the execution of  the program instead of waiting for long I/O operations or HTTP requests. i.e the non-JavaScript related code is processed in the background by different threads or by the browser which gets executed when node.js completes execution of the main program and when the data required is successfully fetched. This way, the long time taking operations do not block the execution of the remaining part of the program. Hence the name Non-Blocking.
+ 
+Example :
+
+console.log("First one to start");
+ 
+setTimeout(() => {
+    console.log("I should wait for 3 seconds before execution");
+}, 3000);
+ 
+setTimeout(() => {
+    console.log("I should wait for 0 seconds before execution");
+}, 0);
+ 
+console.log("It's time for me to end");
+
+Answer 1)First one to start
+       2)It's time for me to end
+       3)I should wait for 0 seconds before execution
+       4)I should wait for 3 seconds before execution
+
+
+Q3 What is throughput?
+
+In a Short, Throughtput , is nothing but Bandwidth , generally written in bits/sec , many companies give ads that they give 10Mbps, don't get fooled its only 1.25MB/sec. MB-> mega byte. Mb -> mega bit . By the way you, would have observed that , throughput is DATA/Time taken to send !!
+
+In computer networks, throughput refers to the amount of data that can be transmitted over a network in a given time period. It is usually measured in bits per second (bps), kilobits per second (Kbps), or megabits per second (Mbps).
+
+Throughput can also be used to measure the performance of other systems, such as processors, storage devices, or communication channels. 
+
+
+
+Q4 How is Node js having high IO throughput?
+
+Ans: Node. js is asynchronous and single-threaded. This means that all I/O operations don't block any other operations. It also means that you can send emails, read files, query the database,
+
+Q5 What are CPU intensive tasks?
+
+Ans: Compute-intensive processes are ones that perform IO rarely, perhaps to read in some initial data from a file, for example, and then spend long periods processing the data before producing the result at the end, which requires minimal output.
+
+
+
+Q6 How can you end up blocking your main thread in node.js?
+
+Ans:
+
+Q7 What is the event loop?
+
+Ans: An event loop is something that pulls stuff out of the queue and places it onto the function execution stack whenever the function stack becomes empty.
+
+
+Q8 What are different phases in event loop?
+
+timers: this phase executes callbacks scheduled by setTimeout() and setInterval().
+
+pending callbacks: executes I/O callbacks deferred to the next loop iteration.
+
+idle, prepare: only used internally.
+
+poll: retrieve new I/O events; execute I/O related callbacks (almost all with the exception of close callbacks, the ones scheduled by timers, and setImmediate()); node will block here when appropriate.
+
+check: setImmediate() callbacks are invoked here.
+
+close callbacks: some close callbacks, e.g. socket.on('close', ...).
+
+
+
+
+Q 9 what is the difference between readFile and readFileSync
+
+readFile:
+
+Asynchronous: readFile is an asynchronous function. It initiates the file reading operation and allows other parts of your code to continue executing without waiting for the file read to complete.
+
+Non-blocking: Asynchronous functions like readFile are non-blocking, meaning they do not halt the execution of the program while waiting for the file read to finish. This allows your Node.js application to remain responsive and handle other tasks while the file is being read.
+
+Callback-based: readFile requires a callback function as the last argument. This callback is invoked once the file has been read, passing any errors and the file data to the callback function.
+
+Example usage:
+
+const fs = require('fs');
+fs.readFile('file.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(data);
+});
+
+
+readFileSync:
+
+Synchronous: Unlike readFile, readFileSync is a synchronous function. It blocks the execution of the program until the file reading operation is complete. The program pauses and waits for the file to be read before moving on to the next line of code.
+
+Blocking: Synchronous functions like readFileSync are blocking, which means they can cause the application to halt until the file read is finished. During this time, no other code can be executed.
+
+Returns data directly: Unlike readFile, readFileSync returns the file data directly instead of passing it to a callback. This allows you to assign the data directly to a variable for further processing.
+
+Example usage:
+
+const fs = require('fs');
+const data = fs.readFileSync('file.txt', 'utf8');
+console.log(data);
+
+
+
+
+Q 10 How can you make a network request using http module?
+
+const http = require('http');
+
+// Make an HTTP GET request
+
+http.get('http://example.com/api/data', (res) => {
+  let data = '';
+
+  // Accumulate the response data
+  res.on('data', (chunk) => {
+    data += chunk;
+  });
+
+  // Process the complete response
+  res.on('end', () => {
+    console.log(data);
+  });
+
+}).on('error', (error) => {
+  console.error(`An error occurred: ${error.message}`);
+});
+
+
+
+
+*********************************sachin*******************************************************
+
+
+
+
+1. What is non-blocking vs blocking?
+---> Non-blocking refers to code or a method that does not stop or block the execution of the program while it waits for a response or resource. A non-blocking method will typically return immediately and allow the program to continue execution, rather than waiting for the response to come back before moving on.
+
+Blocking refers to code or a method that stops or blocks the execution of the program until a response or resource is received. A blocking method will typically not return until the response is received and processed.
+
+example :-
+
+blocking example-:
+
+const fs = require('fs');
+const data = fs.readFileSync('file.txt');
+console.log(data);
+
+non blocking example-:
+
+        const fs = require('fs');
+        fs.readFile('file.txt', (err, data) => {
+            if (err) throw err;
+            console.log(data);
+        });
+
+
+    other example is:-
+
+    setTimeout(() => {
+console.log("Hello after 2 secs!");
+}, 2000);
+console.log("Hello right now!");
+
+
+2. What is throughput?
+
+---> Throughput is a measure of how much work is done in a given amount of time. It is often used to measure the performance of a system, such as a network or computer. In Node.js, throughput can be measured by monitoring the number of requests that a server can handle in a given period of time.
+
+    For example, if a Node.js server is able to handle 100 requests per second, its throughput would be 100 requests per second.
+
+    A simple example of how to measure throughput in Node.js using the 'ab' command-line tool (Apache benchmark):
+
+    code of example
+
+    ab -c 100 -n 1000 http://localhost:3000/
+    This command sends 1000 requests, with a concurrency of 100 requests at a time to the server running on localhost at port 3000. The output will show the number of requests per second handled by the server.
+3. How can you make a network request using http module?
+--> In Node.js, you can make a network request using the built-in http module. The http module provides an http.request() method which allows you to make a request to a specified server.
+
+example:-
+
+        const http = require('http');
+
+        http.get('http://www.example.com', (res) => {
+        console.log(`statusCode: ${res.statusCode}`);
+        res.on('data', (d) => {
+            process.stdout.write(d);
+        });
+
+        }).on('error', (error) => {
+        console.error(error);
+        });
+This is a simple example of making a GET request, you can also use the same method to make other types of requests such as POST, PUT, DELETE, etc. by changing the options.method value.
+
+
+
+4. How to create a web server without express?
+
+---> You can create a web server in Node.js without using the Express framework by using the built-in http module. The http module provides an http.createServer() method that allows you to create a server and handle incoming requests.
+
+Here is an example of how to create a basic web server that listens on port 3000 and responds to all incoming requests with "Hello, World!":
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+
+res.end('Hello, World!'); 
+
+}
+);
+
+server.listen(3000, () => { console.log('Server listening on port 3000'); });
+
+This code creates an HTTP server using the http.createServer() method, and sets up an event listener for incoming requests. When a request is received, the callback function passed to createServer() is executed. The callback function writes an HTTP 200 OK response header and the string "Hello, World!" to the response.
+
+You can also add routing to your server by using 'url' module to extract the path from the request.
+
+const http = require('http'); const url = require('url');
+
+const server = http.createServer((req, res) => { const pathname = url.parse(req.url).pathname; if(pathname === '/') { res.writeHead(200, {'Content-Type': 'text/plain'}); res.end('Hello, World!'); } else if (pathname === '/about') { res.writeHead(200, {'Content-Type': 'text/plain'}); res.end('About Us'); } else { res.writeHead(404, {'Content-Type': 'text/plain'}); res.end('404 Not Found'); } });
+
+server.listen(3000, () => { console.log('Server listening on port 3000'); }); This code will handle different routes '/' and '/about' and will send 404 status if the path is not found.
+
+Keep in mind that creating a web server from scratch using the http module will require you to write more code to handle things like routing, parsing request bodies, handling cookies and sessions, etc. Express is a popular framework that provides a lot of functionality out of the box and can save you a lot of time and effort.
+
+
+
+
+
+5. what is libuv ?
+
+---> libuv is a multi-platform library that provides an event-driven, non-blocking I/O API. It is written in C language and is designed to be used by Node.js, but it can also be used by other applications.
+
+One of the key features of libuv is its event loop, which is responsible for handling and scheduling asynchronous I/O operations. The event loop runs in a single thread and uses non-blocking I/O to handle multiple I/O operations concurrently. This allows for high performance and efficient use of system resources.
+
+libuv also provides an implementation of a thread pool, which allows for offloading of blocking I/O operations to worker threads. This allows for further performance improvements and better scalability.
+
+libuv also provides utilities for working with the file system, networking, process management, and other common I/O tasks. It also provides a cross-platform implementation of key operating system features such as file handles, sockets, and threading.
+
+In Node.js, all the async operations are handled by the libuv and it's event loop. It is responsible for handling the callbacks, timers, and other async operations, and it's the core of the Node.js non-blocking I/O mechanism.
+
+
+
+
+
+
+6. what is timmer in node.js?
+
+---> Timers are a way to schedule code to be executed at a specific time or after a certain period of time in Node.js. The built-in setTimeout() and setInterval() functions are the two most commonly used timers in Node.js.
+
+setTimeout(cb, ms) function is used to schedule a single execution of a callback function (cb) after a specified number of milliseconds (ms). Here is an example of using setTimeout() to print "Hello, World!" after 2 seconds:
+
+setTimeout(() => { console.log('Hello, World!'); }, 2000);
+
+setInterval(cb, ms) function is used to schedule the repeated execution of a callback function (cb) after a specified number of milliseconds (ms). Here is an example of using setInterval() to print "Hello, World!" every 2 seconds:
+
+const intervalId = setInterval(() => { console.log('Hello, World!'); }, 2000);
+
+You can also use clearTimeout() and clearInterval() functions to stop the scheduled execution of the callback function. For example:
+
+clearInterval(intervalId);
+
+It is important to note that timers in Node.js use non-blocking I/O, meaning that other code can continue to execute while a timer is waiting to execute its callback. Keep in mind that in some cases, if the event loop has a lot of work to do, the scheduled callback may not be executed as soon as expected.
+
+Also, the setTimeout() and setInterval() functions, return a timeoutId that you can use later to clear the timeout using clearTimeout(timeoutId) function.
+
+
+
+
+7. what is NVM and how to use it ?
+
+--> NVM (Node Version Manager) is a command line tool that allows you to easily install, manage, and switch between different versions of Node.js on your computer. It is particularly useful if you are working on multiple projects that require different versions of Node.js.
+
+To use NVM, you first need to install it on your computer. Once installed, you can use the following commands to manage Node.js versions:
+
+nvm install - installs a specific version of Node.js. For example, nvm install 12.18.3 installs version 12.18.3 of Node.js. nvm use - switches to a specific version of Node.js. For example, nvm use 12.18.3 switches to version 12.18.3 of Node.js. nvm current - shows the current version of Node.js that is being used. nvm list - shows all the versions of Node.js that are installed on your computer. Here is an example of how to use NVM:
+
+install version 12.18.3 of Node.js
+nvm install 12.18.3
+
+switch to version 12.18.3 of Node.js
+nvm use 12.18.3
+
+check the current version of Node.js
+nvm current
+
+Output: v12.18.3
+list all installed versions of Node.js
+nvm list
+
+Output:
+v12.18.3
+v14.15.1 (default)
+v15.3.0
+In this example, the latest version of Node.js is 14.15.1 and version 12.18.3 is installed and used. You can also use the command nvm alias default to set a version of Node.js as default. For example:
+
+nvm alias default 12.18.3 This command will set version 12.18.3 as the default version of node.js.
+
+NVM is a powerful tool that can help you easily manage multiple versions of Node.js and ensure that your projects are running on the correct version of Node.js. This makes it a great tool to use for development and production environments.
+
+
+
+
+
+8. What is common.js? how is it different from es modules?
+
+--> CommonJS is a module system for JavaScript that was originally designed for server-side programming with Node.js. It defines a way for JavaScript code to include other modules of code via the require() function and to expose a module's functionality to other modules via the module.exports or exports object.
+
+Here is an example of a CommonJS module:
+
+// myModule.js
+
+const myFunction = () => { console.log("Hello, World!"); };
+
+module.exports = { myFunction: myFunction }; This module exports a single function myFunction as an object property. This can be consumed by another module using the require() function.
+
+// main.js
+
+const myModule = require('./myModule'); myModule.myFunction(); On the other hand, ECMAScript modules (ES modules) is the official standard for JavaScript modules and it's supported by all modern browsers and Node.js. It defines a way for JavaScript code to include other modules of code via the import statement and to expose a module's functionality to other modules via the export statement.
+
+Here is an example of an ES module:
+
+// myModule.js
+
+const myFunction = () => { console.log("Hello, World!"); };
+
+export { myFunction }; This module exports a single function myFunction. This can be consumed by another module using the import statement.
+
+// main.js
+
+import { myFunction } from './myModule';
+
+myFunction();
+
+The main difference between CommonJS and ES modules is that CommonJS loads modules synchronously while ES modules loads modules asynchronously, also the way they are imported and exported is different. ES modules are more powerful than CommonJS and have more features like support for cyclic dependencies, more concise and clear syntax, support for more advanced features like live bindings. In Node.js, you can use both CommonJS and ES modules by using the appropriate syntax.
+
+
+
+
+9. How does the crypto module work?
+
+---> The crypto module in Node.js provides a collection of cryptographic functions and algorithms. It can be used to generate hash values, encrypt and decrypt data, and sign and verify messages. The crypto module is built on top of the OpenSSL library, which provides the underlying implementation of the cryptographic functions.
+
+Here is an example of how to use the crypto module to generate a SHA-256 hash of a message:
+
+const crypto = require('crypto');
+
+const message = 'Hello, World!'; const hash = crypto.createHash('sha256').update(message).digest('hex'); console.log(hash); This code uses the crypto.createHash() method to create a new hash object using the SHA-256 algorithm. The update() method is then used to add the message to the hash object, and the digest() method is used to get the final hash value in hexadecimal format.
+
+In addition to generating hash values, the crypto module can also be used to encrypt and decrypt data using various algorithms such as AES, RSA, and DES. The crypto.createCipher() and crypto.createDecipher() methods can be used for this purpose.
+
+For example, to encrypt a message using AES-256 in CBC mode:
+
+const crypto = require('crypto');
+
+const algorithm = 'aes-256-cbc'; const key = crypto.randomBytes(32); const iv = crypto.randomBytes(16);
+
+const message = 'Hello, World!'; const cipher = crypto.createCipheriv(algorithm, key, iv); let encrypted = cipher.update(message, 'utf8', 'hex'); encrypted += cipher.final('hex'); console.log(encrypted); This code uses the crypto.createCipheriv() method to create a new cipher object using the AES-256 algorithm, and a key and iv generated using crypto.randomBytes(). The update() method is then used to encrypt the message and the final() method is used to get the final encrypted message.
+
+The crypto module in Node.js provides a wide range of cryptographic functions and it's a powerful tool for securing and protecting data. It's important to use the appropriate cryptographic algorithms and to handle keys and other sensitive information securely.
+
+
+
+
+10. What are web sockets?
+
+---> WebSockets are a protocol for bi-directional, real-time communication between a client (such as a web browser) and a server. Unlike traditional HTTP communication, which is request-response based, WebSockets allow for continuous, two-way communication between the client and server, allowing for low-latency, high-frequency communication.
+
+WebSockets use a single, long-lived connection between the client and server, which is established using the WebSocket protocol. Once the connection is established, the client and server can send messages to each other at any time, without the need for the overhead of opening and closing multiple connections.
+
+WebSockets are supported by most modern web browsers and can be used to create real-time applications such as chat, online games, and collaborative editing tools.
+
+WebSockets can be implemented using the WebSocket API, which is supported by most modern web browsers. On the server side, the WebSocket protocol can be handled using a WebSocket library or framework, such as Socket.io or ws.
+
+Here is an example of a WebSocket server using the ws library in Node.js
+
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', function connection(ws) { ws.on('message', function incoming(message) { console.log('received: %s', message); });
+
+ws.send('something'); }); In this example, a WebSocket server is created on port 8080, and it listens for new connections. When a new connection is established, the server sets up event listeners for incoming messages and for sending messages.
+
+WebSockets are useful for real-time applications as they provide low latency, high frequency communication between the client and server, allowing for real-time interactions and updates in web applications.
+
+
+
+
+11. What are microservices?
+
+--> Microservices is an architectural style that structures an application as a collection of small, independent services that communicate over a network. Each service is responsible for a specific business capability and can be developed, deployed, and scaled independently of the other services.
+
+In a microservices architecture, each service has its own codebase, data store, and can be written in different languages. Services can also be deployed and scaled independently, providing flexibility and scalability.
+
+One of the main benefits of microservices is that it allows for a high degree of flexibility and scalability. Because each service is independently deployable, it is much easier to make changes to one service without affecting the rest of the application. This makes it easier to develop, test, and deploy new features, and to make updates and fixes to existing features.
+
+Another benefit is that it allows for more efficient use of resources. Because each service is smaller and more focused, it can be deployed on a smaller, more specific infrastructure, which can be more cost-effective.
+
+Here is an example of an application that is structured as a set of microservices:
+
+An e-commerce website that has multiple microservices:
+
+User service: handles user registration and authentication
+Product service: handles product catalog and inventory management
+Order service: handles order management and processing
+Payment service: handles payment processing and financial transactions
+Shipping service: handles shipping and delivery management
+Each of these services can be developed, deployed, and scaled independently of the others, providing flexibility and scalability for the overall system. Microservices architecture is particularly suitable for large, complex applications, and for organizations that have multiple development teams working on different parts of the same application. It allows for a high degree of flexibility and scalability, and makes it easier to develop, test, and deploy new features.
+
+
+
+12. Creating a CLI based app using Node.js and publish it
+
+---> Creating a command-line interface (CLI) based app using Node.js is relatively simple. You can use the built-in process object to read command line arguments and the fs module to read and write files. You can also use external libraries such as commander or yargs to help with argument parsing and validation.
+
+Here is an example of a simple Node.js CLI app that takes a file path as an argument and prints the contents of the file to the console:
+
+Copy code const fs = require('fs');
+
+const filePath = process.argv[2];
+
+fs.readFile(filePath, 'utf8', (err, data) => { if (err) { console.error(err); return; } console.log(data); }); Once you have your CLI app working, you can publish it to npm (node package manager) by following these steps:
+
+Create an account on npm if you don't have one. Run npm login to log in to your npm account. Run npm init to create a package.json file for your app. Run npm publish to publish your app to the npm registry. It's important to keep in mind that the package name must be unique and it's recommended to have a clear and informative readme.md file, that explains how to use the package.
+
+You can also use the -g or --global flag when installing the package, to make the package available system-wide, allowing you to use it from anywhere in the terminal.
+
+Once you've published your app, other developers can easily install and use it by running npm install -g , and then running the command in their terminal.
+
+Additionally, you can also use tools like np or release-it which automate the process of versioning, releasing and publishing of your package.
+
+Please keep in mind that publishing a package to npm makes it public and accessible to anyone, so be careful not to include sensitive information or private keys in your code before publishing.
+
+
+
+13 . node js is a singleThreded languages so how it handal concerency ?
+
+---> Node.js is built on top of the V8 JavaScript engine, which is single-threaded by design. However, Node.js uses an event-driven, non-blocking I/O model, which allows it to handle multiple requests concurrently.
+
+For example, when a Node.js server receives a request, it reads the request and starts processing it. While the request is being processed, the Node.js server can handle other incoming requests. Once the processing of the first request is complete, the server sends the response back to the client. This allows the server to handle many requests simultaneously, without waiting for each one to complete before moving on to the next.
+
+To handle concurrent tasks in Node.js, developers can use libraries like 'async' and 'await' or use child_process.spawn() or child_process.fork() to create multiple child processes.
+
+Example:
+
+const http = require('http');
+
+const server = http.createServer((req, res) => { // This is where the server would process the request // But since it's a simulated long-running task, the server is doing nothing.
+
+setTimeout(() => {
+    res.end('Hello World!');
+}, 5000);
+});
+
+server.listen(3000, () => { console.log('Server running on port 3000'); });
+
+This server listens for incoming requests on port 3000 and responds with "Hello World!" after 5 seconds. During the time it takes to respond to the first request, the server is able to handle other requests.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

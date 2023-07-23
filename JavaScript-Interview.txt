@@ -1,0 +1,518 @@
+1) What is Event Loop?
+
+An event loop is something that take out data of the callback queue and places it into the function execution stack whenever the function stack becomes empty.
+The event loop is the secret by which JavaScript gives us an illusion of being multithreaded even though it is single-threaded.
+
+
+// Second answer
+
+In JavaScript, the event loop is a mechanism that handles asynchronous operations and manages the execution of code. It is a fundamental part of JavaScript's concurrency model.
+
+JavaScript is a single-threaded language, which means it can only execute one piece of code at a time. However, it often needs to perform tasks that take time, such as making network requests or reading from a file. These tasks are asynchronous, and if JavaScript were to wait for them to complete before moving on to the next task, it would result in poor performance and bad user experience.
+
+ * It consists of two main components: the call stack and the event queue.
+
+Call Stack: The call stack is a data structure that keeps track of function calls in the program. Whenever a function is called, a corresponding stack frame is added to the stack, representing that function's execution context. The stack operates in a Last-In-First-Out (LIFO) manner, meaning the most recently added function is the first one to be executed.
+
+Event Queue: The event queue is a queue data structure that holds tasks to be executed. These tasks are triggered by events such as mouse clicks, timer expirations, or the completion of asynchronous operations. When an event occurs, its corresponding task is added to the event queue.
+
+The event loop continuously checks the call stack and the event queue. If the call stack is empty, it takes the first task from the event queue and pushes it onto the call stack for execution. This way, the event loop ensures that tasks are executed in the order they were added to the event queue, and it prevents long-running tasks from blocking the execution of other code.
+
+
+
+impt point= (Global execution context),(Execution,Memory/creation),(call stack,callback queue),(Web Browser API)
+
+console.log("start")
+
+setTimeout(function(){
+    console.log("middle")
+},3000)
+
+console.log("end")
+
+
+
+2) suppose there is an promise and one is setTime out which call first?
+
+=> the promise callback always logs before the setTimeout.
+
+
+
+3) what is DOM?
+ 
+ DOM stands for ‘Document Object Model’. In simple terms, it is a structured representation of the HTML elements that are present in a webpage or web app. DOM represents the entire UI of your application. The DOM is represented as a tree data structure. It contains a node for each UI element present in the web document. It is very useful as it allows web developers to modify content through JavaScript, also it being in structured format helps a lot as we can choose specific targets and all the code becomes much easier to work with.
+
+DOM is a way to represent the webpage in a structured hierarchical way so that it will become easier for programmers  . we can easily access and manipulate tags, IDs, classes, Attributes, or Elements of HTML using commands or methods provided by the Document object. Using DOM, the JavaScript gets access to HTML as well as CSS of the web page 
+
+
+4.1) what is scope in javascript and how many types
+
+=>   Scope in JavaScript defines accessibility of variables, objects and functions.
+
+=>   JavaScript has 3 types of scope :
+
+=>    Block scope
+
+     These two keywords let and const provide Block Scope in JavaScript.
+     Variables declared inside a { } block cannot be accessed from outside the block:
+
+      {
+        let x = 2;
+       }
+
+
+=>    Function scope
+      Variables defined inside a function are not accessible (visible) from outside the function.
+      Variables declared with var, let and const are quite similar when declared inside a function.
+       
+      function myFunction() {
+           var carName = "Volvo";   // Function Scope
+           let bhai=santosh
+           const x=1000 
+     }
+
+ =>   Global scope
+      A variable declared outside a function, becomes GLOBAL.
+      Global variables can be accessed from anywhere in a JavaScript program.
+
+        let bhai=santosh
+        function myFunction() {
+
+          
+         }
+
+4) what is hoisting in JavaScript?
+
+  =>Hoisting in JavaScript's default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).
+
+   => console.log(x)  It will give undefined
+     var x=5 
+
+   => console.log(y)  it will give Refrence error
+     let y=5
+
+
+
+5) what is clouser?
+
+  =>A closure gives you access to an outer function's scope from an inner function. In JavaScript, closures are created every time a function is created, at function creation time.
+
+ 
+  function init() {
+
+     var name = "Mozilla"; // name is a local variable created by init
+
+  function displayName() {
+
+    // displayName() is the inner function, that forms the closure
+
+    console.log(name); //use variable declared in the parent function
+  }
+  displayName();
+}
+init();
+
+
+6) what is  callback && callbackhell?
+
+=> In JavaScript, a callback is a function that is passed as an argument to another function and is executed at a later point in time, typically after the completion of an asynchronous operation. Callbacks are essential for handling asynchronous tasks in JavaScript, where the result is not immediately available, such as fetching data from a server, reading a file, or handling user events.
+
+
+// Main function
+const mainFunction = (callback) => {
+    setTimeout(() => {
+        callback([2, 3, 4]);
+    }, 2000)
+}
+  
+// Add function
+const add = (array) => {
+    let sum = 0;
+    for(let i of array) {
+        sum += i;
+    }
+    console.log(sum);
+}
+  
+// Calling main function
+mainFunction(add);
+
+## Callback Hell: 
+
+Callback hell, also known as the Pyramid of Doom,It is a situation that arises when you have multiple nested callbacks in asynchronous code. Every callback depends/waits for the previous callback, thereby making a pyramid structure that affects the readability and maintainability of the code. 
+
+
+
+
+
+
+7) what is map,filter,reduce,pop,push,shift,unshift,splice,slice,forEach,concat,join,every?
+
+=>map,filter,reduce,pop,push,shift,unshift,splice,slice,forEach,concat,join,every all array methods in JavaScript.
+
+## concat
+
+In JavaScript, concat() is a string method that is used to concatenate strings together. The concat() method appends one or more string values to the calling string and then returns the concatenated result as a new string. 
+
+const array1 = ['a', 'b', 'c'];
+const array2 = ['d', 'e', 'f'];
+const array3 = array1.concat(array2);
+
+console.log(array3);  // [ 'a', 'b', 'c', 'd', 'e', 'f' ]
+
+
+## push
+
+Javascript array push() method appends the given element(s) in the last of the array and returns the length of the new array.
+When you want to add an element to the end of your array, use push().
+
+const countries = ["Nigeria", "Ghana", "Rwanda"];
+countries.push("Kenya");
+console.log(countries); // ["Nigeria","Ghana","Rwanda","Kenya"]
+
+## pop
+
+The pop() method removes the last element from an array and returns that value to the caller. If you call pop() on an empty array, it returns undefined.
+Array.prototype.shift() has similar behaviour to pop(), but applied to the first element in an array.
+
+const plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
+console.log(plants.pop());  // expected output: "tomato"
+console.log(plants);   // expected output: Array ["broccoli", "cauliflower", "cabbage", "kale"]
+
+## shift
+
+shift() is a built-in JavaScript function that removes the first element from an array. The shift() function directly modifies the JavaScript array with which you are working. shift() returns the item you have removed from the array.
+
+const array1 = [1, 2, 3];
+const firstElement = array1.shift();
+console.log(array1); // expected output: Array [2, 3]
+console.log(firstElement);  // expected output: 1
+
+
+## unshift
+
+The unshift() method inserts the given values to the beginning of an array-like object.
+Array.prototype.push() has similar behaviour to unshift(), but applied to the end of an array.
+
+const array1 = [1, 2, 3];
+console.log(array1.unshift(4, 5)); // expected output: 5
+console.log(array1); // expected output: Array [4, 5, 1, 2, 3]
+
+## join
+
+JavaScript array join() is a built-in method that creates and returns the new string by concatenating all of the elements of the array. The join() method joins the array’s items into the string and returns that string. The specified separator will separate the array of elements. The default separator is a comma (,).
+
+
+const elements = ['Fire', 'Air', 'Water'];
+
+console.log(elements.join()); // expected output: "Fire","Air","Water"
+
+console.log(elements.join('')); // expected output: "FireAirWater"
+
+console.log(elements.join('-')); // expected output: "Fire"-"Air"-"Water"
+
+
+## every
+
+The every() method tests whether all elements in the array pass the test implemented by the provided function. It returns a Boolean value.
+
+const isBelowThreshold = (currentValue) => currentValue < 40;
+const array1 = [1, 30, 39, 29, 10, 13];
+console.log(array1.every(isBelowThreshold)); // expected output: true
+
+
+## filter
+
+The filter() method creates a new array filled with elements that pass a test provided by a function.
+The filter() method does not execute the function for empty elements.
+The filter() method does not change the original array.
+
+const ages = [32, 33, 16, 40]; 
+const result = ages.filter(checkAdult);
+
+function checkAdult(age) {
+  return age >= 18;
+}
+
+
+## indexOf
+
+The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
+
+const beasts = ['ant', 'bison', 'camel', 'duck', 'bison'];
+
+console.log(beasts.indexOf('bison')); // expected output: 1
+// start from index 2
+console.log(beasts.indexOf('bison', 2)); // expected output: 4
+console.log(beasts.indexOf('giraffe')); // expected output: -1
+
+
+## reduce()
+
+The reduce() method executes a reducer function on each element of the array and returns a single output value.
+
+=>Parameter
+accumulator - It accumulates(collect) the callback's return values.
+currentValue - The current element being passed from the array.
+
+const arr = ["JavaScript ", "is ", "fun."];
+
+// function to join each string elements
+
+function joinStrings(accumulator, currentValue) {
+  return accumulator + currentValue;
+} 
+
+// reduce join each element of the string
+
+let joinedString = arr.reduce(joinStrings);
+console.log(joinedString);   // Output: JavaScript is fun.
+
+
+## map
+
+The Array.map() method allows you to iterate over an array and modify its elements using a callback function. The callback function will  be executed on each of the array's elements.
+
+let arr = [3, 4, 5, 6];
+
+let modifiedArr = arr.map(function(element){
+    return element *3;
+});
+
+console.log(modifiedArr); // [9, 12, 15, 18]
+
+
+
+## splice
+
+The splice() method is a general-purpose method for changing the contents of an array by removing, replacing, or adding elements in specified positions of the array. This section will cover how to use this method to add an element to a specific location.
+
+Array.splice( index, remove_count, item_list )
+
+const fruits = ["Banana", "Orange", "Apple", "Mango"];
+
+fruits.splice(2, 0, "Lemon", "Kiwi"); //Banana,Orange,Lemon,Kiwi,Apple,Mango
+
+
+## slice
+
+The slice() method returns a shallow copy of a portion of an array into a new array object selected from start to end (end not included) where start and end represent the index of items in that array. The original array will not be modified.
+
+array.slice( begin [,end] );
+
+const animals = ['ant', 'bison', 'camel', 'duck', 'elephant'];
+
+console.log(animals.slice(2)); // expected output: Array ["camel", "duck", "elephant"]
+
+console.log(animals.slice(2, 4)); // expected output: Array ["camel", "duck"]
+
+
+
+
+
+8) how many scops in javaScripts?
+
+=> 3 scope local,global,block 
+
+
+9) what is call,bind,apply?
+
+
+## call 
+
+The call() method calls a function by passing this and specified values as arguments.
+
+//function that adds two numbers 
+function sum(a, b) {
+  return a + b;
+}
+// calling sum() function  
+var result = sum.call(this, 5, 10);
+
+console.log(result);    // 15
+
+## bind
+
+ bind() method is used to create a new function. When a function is called, it has its own this keyword set to the provided value, with a given sequence of arguments.
+
+## apply 
+
+apply() method is used to call a function contains this value and an argument contains elements of an array.
+
+10) what is diffrence between in arrow function and normal function?
+
+## Syntax
+The first and most obvious difference between arrow functions and regular functions is their syntax.
+
+## this binding:
+Traditional functions define their own this value, whereas arrow functions inherit the this value of the enclosing context. This means that arrow functions can be more predictable when it comes to the value of this.
+
+
+## arguments object:
+Traditional functions have access to an arguments object that contains all of the arguments passed to the function, even if they were not defined as formal parameters. Arrow functions do not have an arguments object, so you need to use the rest parameter syntax (...args) to achieve the same effect.
+
+
+regular function :  let user = {   
+                        show(){
+               console.log(arguments);
+                    }
+              };
+       user.show(1, 2, 3); // It give answer 
+
+
+Arrow function  :  let user = {   
+                      show_ar : () => {
+                  console.log(...arguments);
+                   }
+                 };
+                 user.show_ar(1, 2, 3);  //It give argument are not define
+
+
+
+
+11) what is memorisation?
+
+=> When a function is given in input, it performs the necessary computation and saves the result in a cache before returning the value. If the same input is received again in the future, it will not be necessary to repeat the process. It would simply return the cached answer from the memory. This will result in a large reduction in a code’s execution time.
+
+
+12) what is spreed oprator and rest oprator?
+
+## spreed
+
+As the name suggests, the spread operator “spreads” the values in an array or a string across one or more arguments.
+
+const a = [1,2,3];
+const b = [4,5,6];
+const c = a.concat(b);
+console.log(c)
+
+## Rest Operator:
+The rest operator is also denoted by three dots ... but is used in a different context. It can be used to represent an indefinite(without fixed or specified limit) number of arguments as an array.
+
+// Using the rest operator to create a function that can take any number of arguments
+function sum(...numbers) {
+  let total = 0;
+  for (let number of numbers) {
+    total += number;
+  }
+  return total;
+}
+console.log(sum(1, 2, 3)); // 6
+console.log(sum(1, 2, 3, 4, 5)); // 15
+
+// Using the rest operator with destructuring to extract certain values from an array
+const [first, second, ...others] = [1, 2, 3, 4, 5];
+console.log(first); // 1
+console.log(second); // 2
+console.log(others); // [3, 4, 5]
+
+
+
+
+
+13) difference between foreach and map?
+
+
+1	The forEach() method does not returns a  new array based on the given array.	
+      The map() method returns an entirely new array.
+
+2	The forEach() method returns “undefined“.	
+      The map() method returns the newly created array according to the provided callback function.
+
+3	The forEach() method doesn’t return anything hence the method chaining technique cannot be applied here. 	
+      With the map() method, we can chain other methods like, reduce(),sort() etc.
+
+4.	It is not executed for empty elements.	
+      It does not change the original array.
+
+
+
+
+14) what is Promise?
+
+=> Promises are used to handle asynchronous operations in JavaScript. They are easy to manage when dealing with multiple asynchronous operations where callbacks can create callback hell leading to unmanageable code.
+
+=> A Promise is an object representing the eventual completion or failure of an asynchronous operation (MDN DOcs).it will create callbackhell. for solution of callbackhell we use promise chain.
+
+let x=fetch("https://book-api-epaa.onrender.com/books")
+
+console.log(x)  // it will return promise
+
+x.then((res)=>{
+  console.log(res)
+})
+ // it will return respose 
+
+
+
+
+
+13) let arr=[1,2,3,4,5]
+     let obj={arr}
+    console.log(obj)
+
+14)  const promise=new Promise((res)=>res(2));
+     promise
+.then((v)=>{
+
+  console.log(v,"h1")
+   return v*2
+})
+.then((v)=>{
+  console.log(v,"h2")
+return v*2
+})
+.finally((v)=>{
+console.log(v,"h3")
+return 0
+})
+
+.then((v)=>{
+console.log(v,'h4')
+
+})
+
+15)
+
+const arr=[3,4,5,6]
+
+arr.foo="Hi"
+
+ for(let i in arr){   // yaad hai object for key in obj
+   console.log(i)
+    }
+
+
+for(let i of arr){       // esme normal array print karega
+   console.log(i)
+}
+
+
+
+////////////// REact Question //////////////
+
+1) what is vertual DOM?
+2) what is recountilation?
+3) what is advantage of react?
+4) what is one way data Binding?
+5) how redux work?
+6) what is higher order function?
+8) what is life cycle mentor ?
+9) 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
