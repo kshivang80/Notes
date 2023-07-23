@@ -1,0 +1,28 @@
+
+
+1) How many types of sorting algorithm are present in dsa?
+
+
+Bubble Sort: Compares adjacent elements and swaps them if they are in the wrong order. The process repeats until the entire array is sorted.Time Complexity: O(n^2) in the average and worst case.
+
+Selection Sort: Repeatedly selects the minimum (or maximum) element from the unsorted part of the array and places it at the beginning (or end) of the sorted part.Time Complexity: O(n^2) in the average and worst case.
+
+Insertion Sort: Builds the final sorted array one item at a time, by repeatedly taking the next element and inserting it into its proper place in the already sorted part.Time Complexity: O(n^2) in the average and worst case.
+
+Merge Sort: Divides the unsorted list into n sublists, each containing one element, and then repeatedly merges sublists to produce new sorted sublists until there is only one sublist remaining.Time Complexity: O(n log n) in the average and worst case.
+
+Quick Sort: Chooses a "pivot" element and partitions the array around the pivot, such that elements less than the pivot are on the left, and elements greater than the pivot are on the right. The process is recursively applied to the left and right partitions.Time Complexity: O(n log n) in the average case, but O(n^2) in the worst case (when the pivot selection is poorly done).
+
+
+In JavaScript, the native Array.prototype.sort() method uses a variation of Quick Sort or Merge Sort, depending on the engine and the size of the array
+
+
+
+
+
+
+
+
+
+
+

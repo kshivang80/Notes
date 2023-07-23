@@ -271,7 +271,7 @@ console.log(joinedString);   // Output: JavaScript is fun.
 
 ## map
 
-The Array.map() method allows you to iterate over an array and modify its elements using a callback function. The callback function will  be executed on each of the array's elements.
+The Array.map() method allows you to iterate over an array and modify its elements using a callback function. The callback function will  be executed on each of the array's elements.It will not modify original array.
 
 let arr = [3, 4, 5, 6];
 
@@ -383,11 +383,11 @@ As the name suggests, the spread operator “spreads” the values in an array o
 
 const a = [1,2,3];
 const b = [4,5,6];
-const c = a.concat(b);
+const c = [...a,...b]
 console.log(c)
 
 ## Rest Operator:
-The rest operator is also denoted by three dots ... but is used in a different context. It can be used to represent an indefinite(without fixed or specified limit) number of arguments as an array.
+The rest operator is also denoted by three dots ... but is used in a different context. It can be used to represent an unspecified/indefinite(without fixed or specified limit) number of arguments as an array.
 
 // Using the rest operator to create a function that can take any number of arguments
 function sum(...numbers) {
@@ -433,6 +433,15 @@ console.log(others); // [3, 4, 5]
 => Promises are used to handle asynchronous operations in JavaScript. They are easy to manage when dealing with multiple asynchronous operations where callbacks can create callback hell leading to unmanageable code.
 
 => A Promise is an object representing the eventual completion or failure of an asynchronous operation (MDN DOcs).it will create callbackhell. for solution of callbackhell we use promise chain.
+
+A Promise can be in one of three states:
+
+Pending: The initial state. The Promise is still being processed, and the final value is not available yet.
+
+Fulfilled (Resolved): The asynchronous operation was successfully completed, and the Promise is now fulfilled with a value. This is also referred to as "resolved."
+
+Rejected: The asynchronous operation encountered an error or was unsuccessful, and the Promise is now rejected with a reason (error).
+
 
 let x=fetch("https://book-api-epaa.onrender.com/books")
 
@@ -486,6 +495,51 @@ arr.foo="Hi"
 for(let i of arr){       // esme normal array print karega
    console.log(i)
 }
+
+
+
+
+12 ) what is asynchronous javascript ?
+
+JavaScript is a single-threaded language, which means it can only execute one piece of code at a time. However, it often needs to perform tasks that take time, such as making network requests or reading from a file. These tasks are asynchronous, and if JavaScript were to wait for them to complete before moving on to the next task, it would result in poor performance and bad user experience.
+
+To handle asynchronous operations in JavaScript, developers can use callbacks, Promises, or async/await.
+
+
+
+13 ) What is mutability and immutability?
+
+Mutability:
+Mutability refers to the property of data that can be changed or modified after its creation. In other words, if a piece of data is mutable, it can be altered, updated, or modified without creating a completely new instance of the data.
+
+example 
+let mutableArray = [1, 2, 3];
+mutableArray.push(4); // Modify the array by adding a new element
+
+console.log(mutableArray); // Output: [1, 2, 3, 4]
+
+Immutability:
+Immutability refers to the property of data that cannot be changed or modified after its creation. Once an immutable piece of data is created, its content or state cannot be altered. Instead, any modification will create a new instance of the data with the changes applied.
+
+
+let immutableString = "Hello";
+let newString = immutableString.toUpperCase(); // Create a new string with uppercase characters
+
+console.log(immutableString); // Output: "Hello" (the original string remains unchanged)
+console.log(newString); // Output: "HELLO"
+
+
+14 ) What is constructor function ?
+
+In JavaScript, a constructor function is a special type of function that is used to create and initialize objects. Constructor functions are primarily used to define and create custom object types (or classes) in JavaScript.
+
+
+15 ) what is Inheritance ?
+
+
+Inheritance in JavaScript refers to the ability of an object (a subclass or derived class) to acquire properties and methods from another object (a superclass or base class). It allows objects to be based on other objects, inheriting their properties and behavior, which promotes code reuse and makes it easier to create and manage related objects.
+
+
 
 
 
